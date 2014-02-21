@@ -5,7 +5,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-msg = core.crawl(datetime.datetime.now(), 1008)
+fetchDate = datetime.datetime.now()
+msg = core.crawl(fetchDate, 1008)
 #print msg
-records = core.parser(msg)
+records = core.parser(fetchDate, msg)
 

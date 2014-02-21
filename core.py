@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import simplejson as json
 reload(sys)
 sys.setdefaultencoding("utf-8")
 import re
@@ -22,7 +23,7 @@ def crawl(date, station):
 
     return res
 
-def parser(data):
+def parser(date, data):
     regex   = ur"TRSearchResult\.push\(\'(.*?)\'*\)"
     records = re.findall(regex,data); 
 
@@ -36,13 +37,15 @@ def parser(data):
         
         try:
             tra = { 
-                "type"  : records[idx],
-                "number": records[idx+1],
-                "time"  : records[idx+2],
-                "to"    : records[idx+3],
-                "dir"   : records[idx+4],
-                "delay" : records[idx+5],
+                "type"  : records[idx],   #車種
+                "number": records[idx+1], #車次
+                "time"  : records[idx+2], #開車時間
+                "to"    : records[idx+3], #開往
+                "dir"   : records[idx+4], #方向: 順逆
+                "delay" : records[idx+5], #晚點
             }
+            print tra["type"]
+            print str(date.month) + "_" + str(date.day) +"_"+tra["number"]
         except:
             print "[ERROR] Index", idx
 
